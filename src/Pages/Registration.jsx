@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import {
   FaApple,
@@ -11,14 +11,22 @@ import {
 import { Link } from "react-router";
 import { AuthContext } from "../Contexts/AuthContext";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import { PiEyeClosedBold } from "react-icons/pi";
 
 const Registration = () => {
   const { createNewUser } = useContext(AuthContext);
-
+  const [showPass, setShowPass] = useState(false);
   const handleRegistration = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (!strongPasswordRegex.test(password)) {
+      toast.error("Password must be strong");
+      //   return;
+    }
     createNewUser(email, password)
       .then((result) => {
         console.log(result);
@@ -48,6 +56,11 @@ const Registration = () => {
         });
       });
   };
+
+  //   const handleShowPass = () => {
+  //     setShowPass(true);
+  //   };
+
   return (
     <div>
       <div className="bg-slate-50 flex items-center md:h-screen p-4">
@@ -130,9 +143,20 @@ const Registration = () => {
                       name="password"
                       placeholder="Enter password"
                       required
-                      type="password"
+                      type={!showPass ? "password" : "text"}
                     />
-                    <FaEye className="absolute right-2 text-gray-400"></FaEye>
+                    <button
+                      type="button"
+                      className="absolute right-2 text-gray-400 cursor-pointer"
+                      onClick={() => setShowPass(!showPass)}
+                    >
+                      {" "}
+                      {!showPass ? (
+                        <FaEye className="text-2xl"></FaEye>
+                      ) : (
+                        <PiEyeClosedBold className="text-2xl"></PiEyeClosedBold>
+                      )}
+                    </button>
                   </div>
                 </div>
                 <div className="flex items-center">
@@ -174,7 +198,6 @@ const Registration = () => {
           </div>
         </div>
       </div>
-      <ToastContainer></ToastContainer>
     </div>
   );
 };

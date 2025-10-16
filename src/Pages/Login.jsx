@@ -1,19 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { BiUser } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
 import { Link } from "react-router";
 import { AuthContext } from "../Contexts/AuthContext";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import { GoogleAuthProvider } from "firebase/auth";
+import { GoEyeClosed } from "react-icons/go";
 const provider = new GoogleAuthProvider();
 const Login = () => {
   const { signInUser, signInWIthGoogle } = useContext(AuthContext);
-  console.log(signInUser);
+  //   console.log(signInUser);
+  const [showPass, setShowPass] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
+
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!strongPasswordRegex.test(password)) {
+      toast.error("Password must be strong");
+      //   return;
+    }
+
     signInUser(email, password)
       .then((res) => {
         console.log(res);
@@ -110,9 +120,15 @@ const Login = () => {
                       name="password"
                       placeholder="Enter password"
                       required
-                      type="password"
+                      type={showPass ? "text" : "password"}
                     />
-                    <BsEye className="absolute right-2 text-gray-400 text-2xl"></BsEye>
+                    <button
+                      type="button"
+                      className="absolute right-2 text-gray-400 text-2xl"
+                      onClick={() => setShowPass(!showPass)}
+                    >
+                      {showPass ? <GoEyeClosed></GoEyeClosed> : <BsEye></BsEye>}
+                    </button>
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center justify-between gap-4">
@@ -191,7 +207,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <ToastContainer></ToastContainer>
     </div>
   );
 };
