@@ -4,6 +4,7 @@ import Home from "../Pages/Home";
 import Profile from "../Pages/Profile";
 import Registration from "../Pages/Registration";
 import Login from "../Pages/Login";
+import AuthProvider from "../Contexts/AuthProvider";
 
 const router = createBrowserRouter([
   {
@@ -12,8 +13,22 @@ const router = createBrowserRouter([
     children: [
       { index: true, path: "/", element: <Home></Home> },
       { path: "profile", element: <Profile></Profile> },
-      { path: "registration", element: <Registration></Registration> },
-      { path: "login", element: <Login></Login> },
+      {
+        path: "registration",
+        element: (
+          <AuthProvider>
+            <Registration></Registration>
+          </AuthProvider>
+        ),
+      },
+      {
+        path: "login",
+        element: (
+          <AuthProvider>
+            <Login></Login>
+          </AuthProvider>
+        ),
+      },
     ],
   },
 ]);

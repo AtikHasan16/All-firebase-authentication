@@ -7,7 +7,12 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to={"/"}>Home</NavLink>
+        <NavLink
+          to={"/"}
+          className={({ isActive }) => (isActive ? "border-2" : "")}
+        >
+          Home
+        </NavLink>
       </li>
       <li>
         <NavLink to={"/profile"}>Profile</NavLink>
@@ -29,7 +34,9 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <a className="btn btn-ghost text-2xl">AUTHENTIC</a>
+          <Link to={"/"} className="btn btn-ghost text-2xl font-bold">
+            AUTHENTICA
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 text-xl">{links}</ul>

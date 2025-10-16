@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import {
   FaApple,
@@ -9,8 +9,45 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { Link } from "react-router";
+import { AuthContext } from "../Contexts/AuthContext";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 const Registration = () => {
+  const { createNewUser } = useContext(AuthContext);
+
+  const handleRegistration = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    createNewUser(email, password)
+      .then((result) => {
+        console.log(result);
+        toast.success("Successfully Registered", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      })
+      .catch((err) => {
+        toast.error(err.code, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      });
+  };
   return (
     <div>
       <div className="bg-slate-50 flex items-center md:h-screen p-4">
@@ -18,8 +55,8 @@ const Registration = () => {
           <div className="bg-white grid md:grid-cols-2 gap-10 w-full sm:p-8 p-6 shadow-md rounded-md overflow-hidden">
             <div className="max-md:order-1 space-y-6">
               <div className="md:mb-16 mb-8">
-                <h2 className="text-slate-900 text-2xl font-medium">
-                  Instant Access
+                <h2 className="text-slate-900 font-bold text-4xl ">
+                  Create your Account
                 </h2>
               </div>
               <div className="space-y-4">
@@ -46,7 +83,7 @@ const Registration = () => {
                 </button>
               </div>
             </div>
-            <form className="w-full">
+            <form onSubmit={handleRegistration} className="w-full">
               <div className="mb-8">
                 <h2 className="text-slate-900 text-2xl font-medium">
                   Register
@@ -120,10 +157,7 @@ const Registration = () => {
                 </div>
               </div>
               <div className="!mt-8">
-                <button
-                  className="w-full py-2.5 px-4  font-medium tracking-wider cursor-pointer rounded-md bg-blue-600 hover:bg-blue-700 text-white focus:outline-none"
-                  type="button"
-                >
+                <button className="w-full py-2.5 px-4  font-medium tracking-wider cursor-pointer rounded-md bg-blue-600 hover:bg-blue-700 text-white focus:outline-none">
                   Create Account
                 </button>
               </div>
@@ -132,7 +166,6 @@ const Registration = () => {
                 <Link
                   to={"/login"}
                   className="text-blue-600 font-medium hover:underline ml-1"
-                  
                 >
                   Login here
                 </Link>
@@ -141,6 +174,7 @@ const Registration = () => {
           </div>
         </div>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };
