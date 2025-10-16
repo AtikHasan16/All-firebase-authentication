@@ -52,7 +52,7 @@ const Registration = () => {
     <div>
       <div className="bg-slate-50 flex items-center md:h-screen p-4">
         <div className="w-full max-w-3xl max-md:max-w-xl mx-auto">
-          <div className="bg-white grid md:grid-cols-2 gap-10 w-full sm:p-8 p-6 shadow-md rounded-md overflow-hidden">
+          <div className="bg-white grid md:grid-cols-2 gap-10 w-full sm:p-8 p-6 shadow-xl shadow-gray-500 rounded-2xl overflow-hidden">
             <div className="max-md:order-1 space-y-6">
               <div className="md:mb-16 mb-8">
                 <h2 className="text-slate-900 font-bold text-4xl ">
