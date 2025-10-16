@@ -9,9 +9,9 @@ const Home = () => {
         <Container>
           <div className=" flex flex-col  gap-y-16">
             <div>
-              <div className="  text-center">
-                <h1 className="text-slate-900 md:text-6xl text-4xl font-bold">
-                  Simple <span className="text-sky-800">Authentication</span>
+              <div className="my-10  text-center">
+                <h1 className="max-w-5xl mx-auto text-slate-900 md:text-7xl text-4xl font-bold tracking-wide">
+                  Simple <span className="text-sky-800">Authentication </span>
                   Page With Minimal Design
                 </h1>
                 <p className="text-slate-600 text-base leading-relaxed mt-6">

@@ -20,7 +20,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="bg-linear-120 from-sky-900 to-gray-600 text-white">
+    <div className="bg-linear-120 from-purple-900 via-sky-600 to-blue-800 text-white">
       <Container className={"navbar"}>
         <div className="navbar-start">
           <div className="dropdown">
