@@ -31,8 +31,24 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        {" "}
-        <NavLink to={"/profile"}>Profile</NavLink>
+        {currentUser ? (
+          <NavLink
+            to={"/profile"}
+            className={({ isActive }) => (isActive ? "border-2" : "")}
+          >
+            Profile
+          </NavLink>
+        ) : (
+          ""
+        )}
+      </li>
+      <li>
+        <NavLink
+          to={"/dashboard"}
+          className={({ isActive }) => (isActive ? "border-2" : "")}
+        >
+          Dashboard
+        </NavLink>
       </li>
     </>
   );

@@ -14,19 +14,16 @@ import Loading from "../Components/Loading";
 // import { Link, useNavigate } from "react-router";
 
 const AuthProvider = ({ children }) => {
-  //   const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
-  //   const navigate = useNavigate();
-  //   if (currentUser) {
-  //     return navigate("login");
-  //   }
+ 
   const createNewUser = (email, password) => {
-    // setLoading(true);
+  
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const signInUser = (email, password) => {
-    // setLoading(true);
+    
     return signInWithEmailAndPassword(auth, email, password);
   };
   const signInWIthGoogle = (provider) => {
@@ -35,12 +32,8 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user);
-        console.log(user);
-      } else {
-        console.log(user);
-      }
+      setCurrentUser(user);
+      setLoading(false);
     });
     return () => unsubscribe();
   }, []);
@@ -60,6 +53,7 @@ const AuthProvider = ({ children }) => {
     currentUser,
     logOutUser,
     deleteUserData,
+    loading,
   };
   return <AuthContext value={userInformation}>{children}</AuthContext>;
 };
