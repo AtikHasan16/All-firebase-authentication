@@ -9,6 +9,7 @@ import { GoEyeClosed } from "react-icons/go";
 const provider = new GoogleAuthProvider();
 const Login = () => {
   const { signInUser, signInWIthGoogle } = useContext(AuthContext);
+  //   const [user, setUser] = useState(null);
   //   console.log(signInUser);
   const [showPass, setShowPass] = useState(false);
 
@@ -25,8 +26,8 @@ const Login = () => {
     }
 
     signInUser(email, password)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        // setUser(res.user);
         toast.success("Successfully Logged In", {
           position: "top-center",
           autoClose: 5000,

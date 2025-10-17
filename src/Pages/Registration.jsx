@@ -15,6 +15,8 @@ import { PiEyeClosedBold } from "react-icons/pi";
 
 const Registration = () => {
   const { createNewUser } = useContext(AuthContext);
+ 
+  
   const [showPass, setShowPass] = useState(false);
   const handleRegistration = (e) => {
     e.preventDefault();

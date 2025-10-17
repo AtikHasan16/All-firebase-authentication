@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import Container from "./Container";
 import { Link, NavLink } from "react-router";
 import { AiOutlineMenuFold } from "react-icons/ai";
 
+import { AuthContext } from "../Contexts/AuthContext";
+import { toast } from "react-toastify";
+
 const Navbar = () => {
+  const { currentUser, logOutUser } = useContext(AuthContext);
+  // console.log(currentUser);
+  const handleSignOut = () => {
+    logOutUser()
+      .then(() => {
+        // console.log(res);
+
+        toast.success("Successfully logged out");
+      })
+      .catch((err) => {
+        toast.error(err.code);
+      });
+  };
   const links = (
     <>
       <li>
@@ -15,6 +31,7 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
+        {" "}
         <NavLink to={"/profile"}>Profile</NavLink>
       </li>
     </>
@@ -42,9 +59,19 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1 text-xl">{links}</ul>
         </div>
         <div className="navbar-end">
-          <Link to={"/registration"} className="btn text-xl">
-            Sign Up
-          </Link>
+          {currentUser ? (
+            <button
+              onClick={() => handleSignOut()}
+              type="button"
+              className="btn text-xl"
+            >
+              Sign Out
+            </button>
+          ) : (
+            <Link to={"/login"} className="btn text-xl">
+              Sign In
+            </Link>
+          )}
         </div>
       </Container>
     </div>
